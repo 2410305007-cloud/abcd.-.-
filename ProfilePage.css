@@ -1,0 +1,51 @@
+.profile-page {
+  padding: 2rem 0 4rem;
+  max-width: 700px;
+}
+
+.profile-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--gray-dark);
+  border: 1px solid var(--gray-mid);
+  border-radius: var(--radius-sm);
+  color: var(--gray-light);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.tab.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
+
+.tab:hover:not(.active) {
+  border-color: var(--red);
+  color: var(--white);
+}
+
+.profile-form {
+  padding: 2rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+

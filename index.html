@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IronForge Athletics – Premium gym equipment, supplements, and apparel. Forge Your Strength. Define Your Legacy." />
+  <title>IronForge Athletics | Forge Your Strength. Define Your Legacy.</title>
+
+  <!-- Google Fonts -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap');
+  </style>
+
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --black:       #0a0a0a;
+      --red:         #e63946;
+      --red-dark:    #b02a35;
+      --gold:        #f4c430;
+      --gold-dark:   #c9960a;
+      --white:       #ffffff;
+      --gray-dark:   #1a1a1a;
+      --gray-mid:    #2a2a2a;
+      --gray-light:  #888888;
+      --glass-bg:    rgba(255,255,255,0.06);
+      --glass-border:rgba(255,255,255,0.10);
+      --shadow-red:  0 0 30px rgba(230,57,70,0.35);
+      --shadow-gold: 0 0 30px rgba(244,196,48,0.30);
+      --transition:  0.35s cubic-bezier(0.4,0,0.2,1);
+      --font-display:'Bebas Neue', sans-serif;
+      --font-body:   'Inter', sans-serif;
+      --nav-h:       72px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      letter-spacing: 2px;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      color: var(--gray-light);
+      font-size: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .text-red   { color: var(--red); }
+    .text-gold  { color: var(--gold); }
+    .text-center { text-align: center; }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--red) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Reveal animation base */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      transition: background var(--transition), backdrop-filter var(--transition), box-shadow var(--transition);
+    }
+    #navbar.scrolled {
+      background: rgba(10,10,10,0.80);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 2px 40px rgba(0,0,0,0.6);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo svg { flex-shrink: 0; }
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      letter-spacing: 2px;
+      line-height: 1;
+      color: var(--white);
+    }
+    .logo-text span { color: var(--red); }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      position: relative;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--red);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Cart button */
+    .cart-btn {
+      position: relative;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 6px;
+      transition: transform var(--transition), color var(--transition);
+    }
+    .cart-btn:hover { color: var(--gold); }
+    .cart-btn.bounce { animation: cartBounce 0.4s ease; }
+    @keyframes cartBounce {
+      0%,100% { transform: scale(1); }
+      30%      { transform: scale(1.35); }
+      60%      { transform: scale(0.9); }
+    }
+    .cart-badge {
+      position: absolute;
+      top: -4px; right: -6px;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      line-height: 1;
+      box-shadow: 0 0 8px rgba(230,57,70,0.6);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(20px);
+      padding: 1.5rem 2rem;
+      display: none;
+      flex-direction: column;
+      gap: 1.2rem;
+      z-index: 999;
+      border-bottom: 1px solid var(--glass-border);
+      transform: translateY(-100%);
+      transition: transform 0.35s ease;
+    }
+    .mobile-nav.open {
+      display: flex;
+      transform: translateY(0);
+    }
+    .mobile-nav a {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--white);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--glass-border);
+      transition: color var(--transition);
+    }
+    .mobile-nav a:hover { color: var(--red); }
+
+    /* ============================================================
+       TOAST NOTIFICATION
+    ============================================================ */
+    #toast {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      background: var(--gray-dark);
+      border: 1px solid var(--red);
+      border-left: 4px solid var(--red);
+      color: var(--white);
+      padding: 1rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      z-index: 2000;
+      opacity: 0;
+      transform: translateX(120%);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      max-width: 280px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    /* Geometric background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(230,57,70,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(244,196,48,0.08) 0%, transparent 60%),
+        linear-gradient(160deg, #0a0a0a 0%, #1a0505 50%, #0a0a0a 100%);
+    }
+
+    /* Grid pattern overlay */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(230,57,70,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(230,57,70,0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+    }
+
+    /* Floating CSS dumbbells */
+    .floater {
+      position: absolute;
+      opacity: 0.18;
+      font-size: 3rem;
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+      user-select: none;
+    }
+    .floater:nth-child(1) { top: 15%; left: 8%;  animation-delay: 0s;    font-size: 2.5rem; }
+    .floater:nth-child(2) { top: 20%; right: 10%; animation-delay: 1.5s; font-size: 3.5rem; }
+    .floater:nth-child(3) { top: 65%; left: 5%;  animation-delay: 3s;   font-size: 2rem; }
+    .floater:nth-child(4) { top: 70%; right: 7%; animation-delay: 0.8s; font-size: 4rem; }
+    .floater:nth-child(5) { top: 40%; left: 3%;  animation-delay: 2.2s; font-size: 1.8rem; }
+    .floater:nth-child(6) { top: 45%; right: 4%; animation-delay: 3.5s; font-size: 2.8rem; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-22px) rotate(5deg); }
+    }
+
+    /* Hero content */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      background: rgba(230,57,70,0.12);
+      border: 1px solid rgba(230,57,70,0.3);
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 1.4rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: 3px;
+      margin-bottom: 1.2rem;
+    }
+    .hero-title .line2 { color: var(--red); }
+    .hero-title .line3 { color: var(--gold); }
+
+    /* Typing cursor */
+    #typing-text {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 400;
+      color: var(--gray-light);
+      margin-bottom: 2.5rem;
+      min-height: 2em;
+    }
+    #typing-text .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--red);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.75s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+    /* Hero buttons */
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 14px 36px;
+      border-radius: 4px;
+      border: 2px solid transparent;
+      transition: var(--transition);
+      box-shadow: 0 4px 24px rgba(230,57,70,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 36px rgba(230,57,70,0.55);
+    }
+    .btn-primary:hover::before { opacity: 1; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 14px 36px;
+      border-radius: 4px;
+      border: 2px solid rgba(255,255,255,0.25);
+      transition: var(--transition);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(244,196,48,0.2);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+    }
+    .scroll-indicator span {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-light);
+    }
+    .scroll-mouse {
+      width: 24px; height: 38px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      position: relative;
+    }
+    .scroll-mouse::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 50%;
+      transform: translateX(-50%);
+      width: 3px; height: 8px;
+      background: var(--red);
+      border-radius: 2px;
+      animation: scrollDown 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0%   { top: 6px; opacity: 1; }
+      100% { top: 22px; opacity: 0; }
+    }
+
+    /* ============================================================
+       STATS BANNER
+    ============================================================ */
+    #stats {
+      background: var(--gray-dark);
+      border-top: 1px solid rgba(230,57,70,0.2);
+      border-bottom: 1px solid rgba(230,57,70,0.2);
+      padding: 3.5rem 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-item { position: relative; }
+    .stat-item::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 20%;
+      height: 60%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(230,57,70,0.4), transparent);
+    }
+    .stat-item:last-child::after { display: none; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      line-height: 1;
+      color: var(--red);
+      text-shadow: var(--shadow-red);
+      letter-spacing: 2px;
+    }
+    .stat-number.gold { color: var(--gold); text-shadow: var(--shadow-gold); }
+    .stat-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      margin-top: 0.3rem;
+    }
+
+    /* ============================================================
+       CATEGORIES
+    ============================================================ */
+    #categories {
+      padding: 6rem 0;
+      background: var(--black);
+    }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+      gap: 1.5rem;
+    }
+    .cat-card {
+      background: var(--gray-dark);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(230,57,70,0.06), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .cat-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(230,57,70,0.35);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 20px rgba(230,57,70,0.12);
+    }
+    .cat-card:hover::before { opacity: 1; }
+    .cat-icon {
+      width: 60px; height: 60px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .cat-icon.red  { background: linear-gradient(135deg, rgba(230,57,70,0.25), rgba(230,57,70,0.05)); }
+    .cat-icon.gold { background: linear-gradient(135deg, rgba(244,196,48,0.25), rgba(244,196,48,0.05)); }
+    .cat-icon.mix  { background: linear-gradient(135deg, rgba(230,57,70,0.15), rgba(244,196,48,0.15)); }
+    .cat-info { flex: 1; }
+    .cat-name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+    .cat-count {
+      font-size: 0.8rem;
+      color: var(--gray-light);
+    }
+    .cat-arrow {
+      color: var(--red);
+      font-size: 1.1rem;
+      transition: transform var(--transition);
+    }
+    .cat-card:hover .cat-arrow { transform: translateX(5px); }
+
+    /* ============================================================
+       PRODUCTS
+    ============================================================ */
+    #products {
+      padding: 6rem 0;
+      background: var(--gray-dark);
+    }
+
+    /* Filter buttons */
+    .filter-btns {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .filter-btn {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 9px 22px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: var(--gray-light);
+      transition: var(--transition);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(230,57,70,0.35);
+    }
+
+    /* Products grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--black);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(230,57,70,0.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(230,57,70,0.1);
+    }
+    .product-card[data-filter] {
+      transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+    }
+    .product-card.hidden {
+      opacity: 0;
+      transform: scale(0.92);
+      pointer-events: none;
+      position: absolute;
+      visibility: hidden;
+    }
+
+    .product-img {
+      height: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img.bg-1 { background: linear-gradient(135deg, #1a0505, #2d0a10); }
+    .product-img.bg-2 { background: linear-gradient(135deg, #0a0a1a, #0f1535); }
+    .product-img.bg-3 { background: linear-gradient(135deg, #0a1a0a, #0d2b10); }
+    .product-img.bg-4 { background: linear-gradient(135deg, #1a1205, #2b2009); }
+
+    .wishlist-btn {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--glass-border);
+      color: var(--gray-light);
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      transition: var(--transition);
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+    .wishlist-btn:hover,
+    .wishlist-btn.active {
+      color: var(--red);
+      border-color: var(--red);
+      box-shadow: 0 0 12px rgba(230,57,70,0.4);
+    }
+
+    .product-body { padding: 1.2rem; }
+    .product-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+    .product-stars {
+      color: var(--gold);
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.6rem;
+    }
+    .product-stars span { color: var(--gray-light); font-size: 0.75rem; margin-left: 4px; }
+    .product-pricing {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .price-new {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--red);
+      letter-spacing: 1px;
+    }
+    .price-old {
+      font-size: 0.82rem;
+      color: var(--gray-light);
+      text-decoration: line-through;
+    }
+    .price-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: rgba(244,196,48,0.15);
+      color: var(--gold);
+      border: 1px solid rgba(244,196,48,0.3);
+      padding: 2px 7px;
+      border-radius: 50px;
+    }
+
+    .add-to-cart {
+      width: 100%;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 11px;
+      border-radius: 6px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .add-to-cart::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+    .add-to-cart:hover { box-shadow: 0 6px 20px rgba(230,57,70,0.5); transform: translateY(-1px); }
+    .add-to-cart:hover::before { left: 100%; }
+
+    .products-grid-wrap {
+      position: relative;
+      min-height: 200px;
+    }
+
+    /* ============================================================
+       WHY CHOOSE US
+    ============================================================ */
+    #why {
+      padding: 6rem 0;
+      background: var(--black);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 1.5rem;
+      margin-top: 0;
+    }
+    .why-card {
+      background: var(--gray-dark);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 2.2rem 1.8rem;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .why-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      border: 1.5px solid transparent;
+      background: linear-gradient(135deg, var(--red), var(--gold)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .why-card:hover::after { opacity: 1; }
+    .why-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    }
+    .why-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .why-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      margin-bottom: 0.6rem;
+      color: var(--white);
+    }
+    .why-desc {
+      font-size: 0.88rem;
+      color: var(--gray-light);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       SPECIAL OFFER BANNER
+    ============================================================ */
+    #offer {
+      background: linear-gradient(135deg, #1a0000 0%, var(--red-dark) 40%, #8b0000 70%, #1a0000 100%);
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #offer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .offer-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .offer-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      font-weight: 900;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 5px 18px;
+      border-radius: 50px;
+      margin-bottom: 1.2rem;
+    }
+    .offer-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      letter-spacing: 4px;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 40px rgba(0,0,0,0.5);
+    }
+    .offer-sub {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .countdown-item {
+      text-align: center;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 1rem 1.4rem;
+      min-width: 80px;
+      backdrop-filter: blur(8px);
+    }
+    .countdown-num {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      line-height: 1;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(244,196,48,0.5);
+    }
+    .countdown-label {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-top: 4px;
+    }
+    .countdown-sep {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      color: rgba(255,255,255,0.3);
+      align-self: flex-end;
+      padding-bottom: 1.2rem;
+    }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    #testimonials {
+      padding: 6rem 0;
+      background: var(--gray-dark);
+      overflow: hidden;
+    }
+    .testimonials-slider {
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonials-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .testimonial-slide {
+      min-width: 100%;
+      padding: 0 1rem;
+    }
+    .testimonial-card {
+      background: var(--black);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -10px; left: 20px;
+      font-family: Georgia, serif;
+      font-size: 6rem;
+      line-height: 1;
+      color: var(--red);
+      opacity: 0.3;
+    }
+    .testi-stars {
+      color: var(--gold);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+    .testi-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .testi-avatar {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .testi-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .testi-location {
+      font-size: 0.8rem;
+      color: var(--gray-light);
+    }
+
+    /* Slider controls */
+    .slider-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .slider-btn {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--gray-dark);
+      border: 1.5px solid var(--glass-border);
+      color: var(--white);
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .slider-btn:hover {
+      background: var(--red);
+      border-color: var(--red);
+      box-shadow: 0 0 16px rgba(230,57,70,0.4);
+    }
+    .slider-dots {
+      display: flex;
+      gap: 8px;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .dot.active {
+      background: var(--red);
+      box-shadow: 0 0 10px rgba(230,57,70,0.5);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* ============================================================
+       NEWSLETTER
+    ============================================================ */
+    #newsletter {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, var(--black) 0%, #110a0a 50%, var(--black) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #newsletter::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(230,57,70,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .newsletter-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .newsletter-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .newsletter-form {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .newsletter-input {
+      flex: 1;
+      min-width: 220px;
+      background: var(--gray-dark);
+      border: 1.5px solid var(--glass-border);
+      color: var(--white);
+      padding: 13px 18px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      transition: border-color var(--transition);
+      outline: none;
+    }
+    .newsletter-input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(230,57,70,0.15); }
+    .newsletter-input::placeholder { color: var(--gray-light); }
+
+    .newsletter-success {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      color: #4ade80;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 1.5rem;
+    }
+    .newsletter-success.show { display: flex; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    #footer {
+      background: #050505;
+      border-top: 1px solid var(--glass-border);
+      padding: 5rem 0 0;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.6fr repeat(3, 1fr);
+      gap: 2.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .footer-brand .logo { margin-bottom: 1rem; }
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: var(--gray-light);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      max-width: 250px;
+    }
+    .social-links {
+      display: flex;
+      gap: 0.7rem;
+    }
+    .social-link {
+      width: 38px; height: 38px;
+      background: var(--gray-dark);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .social-link:hover {
+      background: var(--red);
+      border-color: var(--red);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(230,57,70,0.35);
+    }
+
+    .footer-col h4 {
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+      position: relative;
+      padding-bottom: 0.7rem;
+    }
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 28px; height: 2px;
+      background: var(--red);
+    }
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+    .footer-col ul li a {
+      font-size: 0.85rem;
+      color: var(--gray-light);
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--red); }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.85rem;
+      color: var(--gray-light);
+    }
+    .contact-item span:first-child { flex-shrink: 0; font-size: 1rem; }
+
+    /* Footer bottom */
+    .footer-bottom {
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--gray-light);
+    }
+    .payment-methods {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .payment-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: var(--gray-dark);
+      border: 1px solid var(--glass-border);
+      color: var(--gray-light);
+      padding: 4px 9px;
+      border-radius: 4px;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 900px) {
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-title { font-size: clamp(3rem, 12vw, 5rem); }
+
+      .footer-top { grid-template-columns: 1fr; }
+
+      .offer-title { font-size: clamp(2rem, 8vw, 3.5rem); }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat-item:nth-child(2)::after,
+      .stat-item:nth-child(4)::after { display: none; }
+      .countdown { gap: 0.5rem; }
+      .countdown-item { min-width: 65px; padding: 0.8rem 1rem; }
+      .countdown-num { font-size: 2.2rem; }
+    }
+
+    /* ============================================================
+       SECTION TRANSITIONS / GENERAL
+    ============================================================ */
+    section { position: relative; }
+  </style>
+</head>
+<body>
+
+  <!-- ====================================================
+       NAVIGATION
+  ==================================================== -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container nav-inner">
+
+      <!-- Logo -->
+      <a href="#hero" class="logo" aria-label="IronForge Athletics Home">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="flameGrad" x1="18" y1="2" x2="18" y2="34" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#f4c430"/>
+              <stop offset="50%" stop-color="#e63946"/>
+              <stop offset="100%" stop-color="#8b0000"/>
+            </linearGradient>
+          </defs>
+          <!-- Flame shape -->
+          <path d="M18 2 C14 8 10 10 12 16 C10 14 9 11 10 8 C6 12 6 18 10 22 C8 21 7 18 8 16 C6 20 7 28 18 34 C29 28 30 20 28 16 C29 18 28 21 26 22 C30 18 30 12 26 8 C27 11 26 14 24 16 C26 10 22 8 18 2Z" fill="url(#flameGrad)"/>
+          <!-- Iron bar in center -->
+          <rect x="13" y="19" width="10" height="3" rx="1.5" fill="rgba(255,255,255,0.25)"/>
+        </svg>
+        <span class="logo-text">IRON<span>FORGE</span></span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <ul class="nav-links" role="list">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#why">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#footer">Contact</a></li>
+      </ul>
+
+      <!-- Cart + hamburger -->
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <button class="cart-btn" id="cartBtn" aria-label="Shopping cart, 0 items">
+          🛒
+          <span class="cart-badge" id="cartBadge" aria-live="polite">0</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+    <a href="#hero"          onclick="closeMobileNav()">Home</a>
+    <a href="#products"      onclick="closeMobileNav()">Products</a>
+    <a href="#categories"    onclick="closeMobileNav()">Categories</a>
+    <a href="#why"           onclick="closeMobileNav()">About</a>
+    <a href="#testimonials"  onclick="closeMobileNav()">Testimonials</a>
+    <a href="#footer"        onclick="closeMobileNav()">Contact</a>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" role="alert" aria-live="polite"></div>
+
+  <!-- ====================================================
+       HERO SECTION
+  ==================================================== -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <!-- Floating elements -->
+    <div class="floater" aria-hidden="true">🏋️</div>
+    <div class="floater" aria-hidden="true">💪</div>
+    <div class="floater" aria-hidden="true">⚡</div>
+    <div class="floater" aria-hidden="true">🎯</div>
+    <div class="floater" aria-hidden="true">🔥</div>
+    <div class="floater" aria-hidden="true">🏆</div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Premium Gym Equipment & Supplements</div>
+      <h1 class="hero-title" aria-label="IronForge Athletics">
+        IRON<br>
+        <span class="line2">FORGE</span><br>
+        <span class="line3">ATHLETICS</span>
+      </h1>
+      <div id="typing-text" aria-live="polite"><span class="cursor"></span></div>
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary" role="button">Shop Now</a>
+        <a href="#categories" class="btn-outline" role="button">View Collections</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-mouse"></div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       STATS BANNER
+  ==================================================== -->
+  <section id="stats" aria-label="Our achievements">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-number" data-target="10000" data-suffix="+">0</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number gold" data-target="500" data-suffix="+">0</div>
+          <div class="stat-label">Products Available</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number" data-target="15" data-suffix="+">0</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number gold" data-target="98" data-suffix="%">0</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       FEATURED CATEGORIES
+  ==================================================== -->
+  <section id="categories" aria-label="Product categories">
+    <div class="container">
+      <div class="text-center">
+        <p class="hero-eyebrow" style="display:inline-block;margin-bottom:0.8rem;">Browse By Category</p>
+        <h2 class="section-title reveal">Shop <span class="gradient-text">Categories</span></h2>
+        <p class="section-subtitle reveal">Find exactly what you need to crush your fitness goals</p>
+      </div>
+      <div class="categories-grid">
+        <div class="cat-card reveal" onclick="filterProducts('weights')" role="button" tabindex="0" aria-label="Browse Dumbbells and Weights">
+          <div class="cat-icon red">🏋️</div>
+          <div class="cat-info">
+            <div class="cat-name">Dumbbells &amp; Weights</div>
+            <div class="cat-count">142 Products</div>
+          </div>
+          <div class="cat-arrow">›</div>
+        </div>
+        <div class="cat-card reveal" onclick="filterProducts('bands')" role="button" tabindex="0" aria-label="Browse Resistance Bands">
+          <div class="cat-icon gold">🎯</div>
+          <div class="cat-info">
+            <div class="cat-name">Resistance Bands</div>
+            <div class="cat-count">68 Products</div>
+          </div>
+          <div class="cat-arrow">›</div>
+        </div>
+        <div class="cat-card reveal" onclick="filterProducts('supplements')" role="button" tabindex="0" aria-label="Browse Protein Supplements">
+          <div class="cat-icon mix">🥤</div>
+          <div class="cat-info">
+            <div class="cat-name">Protein Supplements</div>
+            <div class="cat-count">95 Products</div>
+          </div>
+          <div class="cat-arrow">›</div>
+        </div>
+        <div class="cat-card reveal" onclick="filterProducts('apparel')" role="button" tabindex="0" aria-label="Browse Gym Apparel">
+          <div class="cat-icon red">👕</div>
+          <div class="cat-info">
+            <div class="cat-name">Gym Apparel</div>
+            <div class="cat-count">210 Products</div>
+          </div>
+          <div class="cat-arrow">›</div>
+        </div>
+        <div class="cat-card reveal" role="button" tabindex="0" aria-label="Browse Cardio Equipment">
+          <div class="cat-icon gold">🚴</div>
+          <div class="cat-info">
+            <div class="cat-name">Cardio Equipment</div>
+            <div class="cat-count">54 Products</div>
+          </div>
+          <div class="cat-arrow">›</div>
+        </div>
+        <div class="cat-card reveal" role="button" tabindex="0" aria-label="Browse Recovery and Wellness">
+          <div class="cat-icon mix">🧘</div>
+          <div class="cat-info">
+            <div class="cat-name">Recovery &amp; Wellness</div>
+            <div class="cat-count">77 Products</div>
+          </div>
+          <div class="cat-arrow">›</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       PRODUCTS SECTION
+  ==================================================== -->
+  <section id="products" aria-label="Bestselling products">
+    <div class="container">
+      <div class="text-center">
+        <p class="hero-eyebrow" style="display:inline-block;margin-bottom:0.8rem;">Top Picks</p>
+        <h2 class="section-title reveal">Our <span class="gradient-text">Bestsellers</span></h2>
+        <p class="section-subtitle reveal">Handpicked premium products to power your training</p>
+      </div>
+
+      <!-- Filter buttons -->
+      <div class="filter-btns" role="group" aria-label="Product filters">
+        <button class="filter-btn active" data-filter="all" onclick="filterProducts('all')">All Products</button>
+        <button class="filter-btn" data-filter="weights" onclick="filterProducts('weights')">Weights</button>
+        <button class="filter-btn" data-filter="bands" onclick="filterProducts('bands')">Bands</button>
+        <button class="filter-btn" data-filter="supplements" onclick="filterProducts('supplements')">Supplements</button>
+        <button class="filter-btn" data-filter="apparel" onclick="filterProducts('apparel')">Apparel</button>
+      </div>
+
+      <!-- Products grid -->
+      <div class="products-grid-wrap">
+        <div class="products-grid" id="productsGrid">
+
+          <!-- Product 1 -->
+          <article class="product-card" data-filter="weights" aria-label="Pro Hex Dumbbell Set">
+            <div class="product-img bg-1" aria-hidden="true">
+              🏋️
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Pro Hex Dumbbell Set</h3>
+              <div class="product-stars" aria-label="4.8 out of 5 stars">★★★★★ <span>(4.8)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$89.99</span>
+                <span class="price-old">$129.99</span>
+                <span class="price-badge">31% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Pro Hex Dumbbell Set')" aria-label="Add Pro Hex Dumbbell Set to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 2 -->
+          <article class="product-card" data-filter="weights" aria-label="Olympic Barbell 20kg">
+            <div class="product-img bg-2" aria-hidden="true">
+              💪
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Olympic Barbell 20kg</h3>
+              <div class="product-stars" aria-label="4.9 out of 5 stars">★★★★★ <span>(4.9)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$149.99</span>
+                <span class="price-old">$199.99</span>
+                <span class="price-badge">25% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Olympic Barbell 20kg')" aria-label="Add Olympic Barbell 20kg to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 3 -->
+          <article class="product-card" data-filter="bands" aria-label="Resistance Band Set 5 bands">
+            <div class="product-img bg-3" aria-hidden="true">
+              🎯
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Resistance Band Set (5 bands)</h3>
+              <div class="product-stars" aria-label="4.7 out of 5 stars">★★★★★ <span>(4.7)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$34.99</span>
+                <span class="price-old">$49.99</span>
+                <span class="price-badge">30% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Resistance Band Set')" aria-label="Add Resistance Band Set to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 4 -->
+          <article class="product-card" data-filter="weights" aria-label="Heavy Duty Pull-up Bar">
+            <div class="product-img bg-4" aria-hidden="true">
+              🔩
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Heavy Duty Pull-up Bar</h3>
+              <div class="product-stars" aria-label="4.6 out of 5 stars">★★★★☆ <span>(4.6)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$44.99</span>
+                <span class="price-old">$64.99</span>
+                <span class="price-badge">31% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Heavy Duty Pull-up Bar')" aria-label="Add Heavy Duty Pull-up Bar to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 5 -->
+          <article class="product-card" data-filter="supplements" aria-label="Whey Protein 5lb">
+            <div class="product-img bg-1" aria-hidden="true">
+              🥤
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Whey Protein 5lb</h3>
+              <div class="product-stars" aria-label="4.9 out of 5 stars">★★★★★ <span>(4.9)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$59.99</span>
+                <span class="price-old">$79.99</span>
+                <span class="price-badge">25% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Whey Protein 5lb')" aria-label="Add Whey Protein to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 6 -->
+          <article class="product-card" data-filter="supplements" aria-label="Pre-Workout Powder">
+            <div class="product-img bg-2" aria-hidden="true">
+              ⚡
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Pre-Workout Powder</h3>
+              <div class="product-stars" aria-label="4.7 out of 5 stars">★★★★★ <span>(4.7)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$39.99</span>
+                <span class="price-old">$54.99</span>
+                <span class="price-badge">27% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Pre-Workout Powder')" aria-label="Add Pre-Workout Powder to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 7 -->
+          <article class="product-card" data-filter="apparel" aria-label="Performance Compression Shorts">
+            <div class="product-img bg-3" aria-hidden="true">
+              👕
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Performance Compression Shorts</h3>
+              <div class="product-stars" aria-label="4.5 out of 5 stars">★★★★☆ <span>(4.5)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$29.99</span>
+                <span class="price-old">$44.99</span>
+                <span class="price-badge">33% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Compression Shorts')" aria-label="Add Compression Shorts to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 8 -->
+          <article class="product-card" data-filter="apparel" aria-label="Athletic Training Gloves">
+            <div class="product-img bg-4" aria-hidden="true">
+              🧤
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Athletic Training Gloves</h3>
+              <div class="product-stars" aria-label="4.6 out of 5 stars">★★★★☆ <span>(4.6)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$24.99</span>
+                <span class="price-old">$34.99</span>
+                <span class="price-badge">29% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Training Gloves')" aria-label="Add Training Gloves to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 9 -->
+          <article class="product-card" data-filter="bands" aria-label="Yoga and Stretch Bands">
+            <div class="product-img bg-1" aria-hidden="true">
+              🧘
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Yoga &amp; Stretch Bands</h3>
+              <div class="product-stars" aria-label="4.8 out of 5 stars">★★★★★ <span>(4.8)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$19.99</span>
+                <span class="price-old">$29.99</span>
+                <span class="price-badge">33% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Yoga & Stretch Bands')" aria-label="Add Yoga Stretch Bands to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 10 -->
+          <article class="product-card" data-filter="supplements" aria-label="BCAA Amino Acids">
+            <div class="product-img bg-2" aria-hidden="true">
+              💊
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">BCAA Amino Acids</h3>
+              <div class="product-stars" aria-label="4.7 out of 5 stars">★★★★★ <span>(4.7)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$44.99</span>
+                <span class="price-old">$59.99</span>
+                <span class="price-badge">25% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('BCAA Amino Acids')" aria-label="Add BCAA Amino Acids to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 11 -->
+          <article class="product-card" data-filter="apparel" aria-label="Gym Duffel Bag">
+            <div class="product-img bg-3" aria-hidden="true">
+              👜
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Gym Duffel Bag</h3>
+              <div class="product-stars" aria-label="4.6 out of 5 stars">★★★★☆ <span>(4.6)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$54.99</span>
+                <span class="price-old">$74.99</span>
+                <span class="price-badge">27% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Gym Duffel Bag')" aria-label="Add Gym Duffel Bag to cart">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Product 12 -->
+          <article class="product-card" data-filter="weights" aria-label="Foam Roller Pro">
+            <div class="product-img bg-4" aria-hidden="true">
+              🔵
+              <button class="wishlist-btn" aria-label="Add to wishlist" onclick="toggleWishlist(this)">♡</button>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name">Foam Roller Pro</h3>
+              <div class="product-stars" aria-label="4.8 out of 5 stars">★★★★★ <span>(4.8)</span></div>
+              <div class="product-pricing">
+                <span class="price-new">$32.99</span>
+                <span class="price-old">$44.99</span>
+                <span class="price-badge">27% OFF</span>
+              </div>
+              <button class="add-to-cart" onclick="addToCart('Foam Roller Pro')" aria-label="Add Foam Roller Pro to cart">Add to Cart</button>
+            </div>
+          </article>
+
+        </div><!-- /products-grid -->
+      </div><!-- /products-grid-wrap -->
+    </div>
+  </section>
+
+  <!-- ====================================================
+       WHY CHOOSE US
+  ==================================================== -->
+  <section id="why" aria-label="Why choose IronForge Athletics">
+    <div class="container">
+      <div class="text-center">
+        <p class="hero-eyebrow" style="display:inline-block;margin-bottom:0.8rem;">Our Promise</p>
+        <h2 class="section-title reveal">Why <span class="gradient-text">Choose Us</span></h2>
+        <p class="section-subtitle reveal">We are committed to delivering excellence in every product and every interaction</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <span class="why-icon" aria-hidden="true">🚚</span>
+          <h3 class="why-title">Free Shipping</h3>
+          <p class="why-desc">Enjoy free shipping on all orders over $50. Fast delivery right to your door, nationwide.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon" aria-hidden="true">🏅</span>
+          <h3 class="why-title">Premium Quality</h3>
+          <p class="why-desc">Every product is rigorously tested and certified. We stock only the best for serious athletes.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon" aria-hidden="true">↩️</span>
+          <h3 class="why-title">30-Day Returns</h3>
+          <p class="why-desc">Not satisfied? Return any product within 30 days for a full refund. No questions asked.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="why-icon" aria-hidden="true">🎧</span>
+          <h3 class="why-title">Expert Support</h3>
+          <p class="why-desc">Our team of fitness experts is available 7 days a week to help you choose the right gear.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       SPECIAL OFFER BANNER
+  ==================================================== -->
+  <section id="offer" aria-label="Special offer">
+    <div class="container offer-inner">
+      <div class="offer-tag reveal">⚡ Limited Time Only</div>
+      <h2 class="offer-title reveal">MEGA SALE</h2>
+      <p class="offer-sub reveal">Up to <strong>50% OFF</strong> on selected items — Don't miss out!</p>
+
+      <!-- Countdown timer -->
+      <div class="countdown reveal" id="countdown" aria-label="Sale countdown timer">
+        <div class="countdown-item">
+          <div class="countdown-num" id="cd-days">00</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-item">
+          <div class="countdown-num" id="cd-hours">00</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-item">
+          <div class="countdown-num" id="cd-mins">00</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-sep" aria-hidden="true">:</div>
+        <div class="countdown-item">
+          <div class="countdown-num" id="cd-secs">00</div>
+          <div class="countdown-label">Seconds</div>
+        </div>
+      </div>
+
+      <a href="#products" class="btn-primary reveal" style="display:inline-block;">Grab the Deal Now</a>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       TESTIMONIALS
+  ==================================================== -->
+  <section id="testimonials" aria-label="Customer testimonials">
+    <div class="container">
+      <div class="text-center">
+        <p class="hero-eyebrow" style="display:inline-block;margin-bottom:0.8rem;">Real Results</p>
+        <h2 class="section-title reveal">What Our <span class="gradient-text">Customers</span> Say</h2>
+        <p class="section-subtitle reveal">Over 10,000 athletes trust IronForge Athletics</p>
+      </div>
+
+      <div class="testimonials-slider" role="region" aria-label="Testimonials carousel">
+        <div class="testimonials-track" id="testiTrack">
+
+          <div class="testimonial-slide" role="group" aria-label="Testimonial 1 of 5">
+            <div class="testimonial-card">
+              <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="testi-text">"IronForge Athletics completely transformed my home gym setup. The hex dumbbell set is incredible quality — the rubber coating is thick, the welds are perfect, and they look amazing. Worth every penny!"</p>
+              <div class="testi-author">
+                <div class="testi-avatar" aria-hidden="true">MJ</div>
+                <div>
+                  <div class="testi-name">Marcus Johnson</div>
+                  <div class="testi-location">📍 Los Angeles, CA</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide" role="group" aria-label="Testimonial 2 of 5">
+            <div class="testimonial-card">
+              <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="testi-text">"I've tried protein supplements from dozens of brands. IronForge's Whey Protein mixes smoothly, tastes amazing, and the results speak for themselves. Gained 12 lbs of lean muscle in 3 months!"</p>
+              <div class="testi-author">
+                <div class="testi-avatar" aria-hidden="true">SA</div>
+                <div>
+                  <div class="testi-name">Sarah Andrews</div>
+                  <div class="testi-location">📍 Chicago, IL</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide" role="group" aria-label="Testimonial 3 of 5">
+            <div class="testimonial-card">
+              <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="testi-text">"The Olympic barbell is a beast. Smooth spin on the sleeves, knurling is just right — aggressive enough for grip but not skin-shredding. I've been using it for 6 months and it still looks brand new."</p>
+              <div class="testi-author">
+                <div class="testi-avatar" aria-hidden="true">RK</div>
+                <div>
+                  <div class="testi-name">Ryan Kowalski</div>
+                  <div class="testi-location">📍 Houston, TX</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide" role="group" aria-label="Testimonial 4 of 5">
+            <div class="testimonial-card">
+              <div class="testi-stars" aria-label="4 out of 5 stars">★★★★☆</div>
+              <p class="testi-text">"Fast shipping, excellent packaging, and the resistance bands are exactly as described. I use them daily for warm-ups and physical therapy. The quality exceeds what I paid. Will definitely be ordering more!"</p>
+              <div class="testi-author">
+                <div class="testi-avatar" aria-hidden="true">LP</div>
+                <div>
+                  <div class="testi-name">Lisa Patel</div>
+                  <div class="testi-location">📍 New York, NY</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide" role="group" aria-label="Testimonial 5 of 5">
+            <div class="testimonial-card">
+              <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="testi-text">"Customer service is outstanding. Had a question about sizing for the compression shorts, and they responded within the hour with personalized recommendations. IronForge Athletics truly cares about their customers."</p>
+              <div class="testi-author">
+                <div class="testi-avatar" aria-hidden="true">DW</div>
+                <div>
+                  <div class="testi-name">David Williams</div>
+                  <div class="testi-location">📍 Miami, FL</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /testimonials-track -->
+      </div><!-- /testimonials-slider -->
+
+      <!-- Controls -->
+      <div class="slider-controls">
+        <button class="slider-btn" id="prevBtn" aria-label="Previous testimonial" onclick="moveSlider(-1)">‹</button>
+        <div class="slider-dots" id="sliderDots" role="tablist" aria-label="Testimonial navigation">
+          <div class="dot active" role="tab" aria-selected="true"  onclick="goToSlide(0)" aria-label="Testimonial 1"></div>
+          <div class="dot"        role="tab" aria-selected="false" onclick="goToSlide(1)" aria-label="Testimonial 2"></div>
+          <div class="dot"        role="tab" aria-selected="false" onclick="goToSlide(2)" aria-label="Testimonial 3"></div>
+          <div class="dot"        role="tab" aria-selected="false" onclick="goToSlide(3)" aria-label="Testimonial 4"></div>
+          <div class="dot"        role="tab" aria-selected="false" onclick="goToSlide(4)" aria-label="Testimonial 5"></div>
+        </div>
+        <button class="slider-btn" id="nextBtn" aria-label="Next testimonial" onclick="moveSlider(1)">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       NEWSLETTER
+  ==================================================== -->
+  <section id="newsletter" aria-label="Newsletter signup">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="newsletter-icon" aria-hidden="true">📬</div>
+        <h2 class="section-title reveal">Join The <span class="gradient-text">Iron Community</span></h2>
+        <p class="section-subtitle reveal" style="margin-bottom:0.5rem;">Subscribe to get exclusive deals, training tips, and early access to new products.</p>
+        <form class="newsletter-form" id="newsletterForm" aria-label="Newsletter subscription form" onsubmit="handleNewsletter(event)">
+          <input
+            type="email"
+            class="newsletter-input"
+            id="newsletterEmail"
+            placeholder="Enter your email address"
+            required
+            aria-label="Email address"
+            autocomplete="email"
+          />
+          <button type="submit" class="btn-primary" aria-label="Subscribe to newsletter">Subscribe</button>
+        </form>
+        <div class="newsletter-success" id="newsletterSuccess" aria-live="polite" role="status">
+          <span>✅</span> <span>You're in! Welcome to the IronForge community. 🔥</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--gray-light);margin-top:1rem;">We respect your privacy. Unsubscribe at any time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       FOOTER
+  ==================================================== -->
+  <footer id="footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-top">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="#hero" class="logo" aria-label="IronForge Athletics Home">
+            <svg width="30" height="30" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="flameGrad2" x1="18" y1="2" x2="18" y2="34" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#f4c430"/>
+                  <stop offset="50%" stop-color="#e63946"/>
+                  <stop offset="100%" stop-color="#8b0000"/>
+                </linearGradient>
+              </defs>
+              <path d="M18 2 C14 8 10 10 12 16 C10 14 9 11 10 8 C6 12 6 18 10 22 C8 21 7 18 8 16 C6 20 7 28 18 34 C29 28 30 20 28 16 C29 18 28 21 26 22 C30 18 30 12 26 8 C27 11 26 14 24 16 C26 10 22 8 18 2Z" fill="url(#flameGrad2)"/>
+              <rect x="13" y="19" width="10" height="3" rx="1.5" fill="rgba(255,255,255,0.25)"/>
+            </svg>
+            <span class="logo-text">IRON<span>FORGE</span></span>
+          </a>
+          <p class="footer-tagline">Forge Your Strength. Define Your Legacy. Premium gym equipment and supplements for serious athletes.</p>
+          <div class="social-links" aria-label="Social media links">
+            <a href="#" class="social-link" aria-label="Facebook">f</a>
+            <a href="#" class="social-link" aria-label="Instagram">📷</a>
+            <a href="#" class="social-link" aria-label="Twitter / X">𝕏</a>
+            <a href="#" class="social-link" aria-label="YouTube">▶</a>
+            <a href="#" class="social-link" aria-label="TikTok">♪</a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#products">Shop All</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#offer">Sale</a></li>
+            <li><a href="#newsletter">Newsletter</a></li>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#categories">Dumbbells &amp; Weights</a></li>
+            <li><a href="#categories">Resistance Bands</a></li>
+            <li><a href="#categories">Protein Supplements</a></li>
+            <li><a href="#categories">Gym Apparel</a></li>
+            <li><a href="#categories">Cardio Equipment</a></li>
+            <li><a href="#categories">Recovery &amp; Wellness</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <div class="contact-item">
+            <span>📍</span>
+            <span>1234 Iron Way, Fitness City, CA 90210</span>
+          </div>
+          <div class="contact-item">
+            <span>📞</span>
+            <span>+1 (800) 467-6374</span>
+          </div>
+          <div class="contact-item">
+            <span>✉️</span>
+            <span>support@ironforge.com</span>
+          </div>
+          <div class="contact-item">
+            <span>🕐</span>
+            <span>Mon – Sat: 8am – 8pm PST</span>
+          </div>
+        </div>
+
+      </div><!-- /footer-top -->
+
+      <!-- Footer bottom -->
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 IronForge Athletics. All rights reserved. Designed with 🔥 for athletes.</p>
+        <div class="payment-methods" aria-label="Accepted payment methods">
+          <span class="payment-tag">VISA</span>
+          <span class="payment-tag">MC</span>
+          <span class="payment-tag">AMEX</span>
+          <span class="payment-tag">PayPal</span>
+          <span class="payment-tag">Apple Pay</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====================================================
+       JAVASCRIPT
+  ==================================================== -->
+  <script>
+    /* ============================================================
+       1. STICKY NAVBAR – glassmorphism on scroll
+    ============================================================ */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    /* ============================================================
+       2. MOBILE HAMBURGER MENU
+    ============================================================ */
+    const hamburger  = document.getElementById('hamburger');
+    const mobileNav  = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      mobileNav.classList.toggle('open', isOpen);
+    });
+
+    function closeMobileNav() {
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileNav.classList.remove('open');
+    }
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!navbar.contains(e.target) && !mobileNav.contains(e.target)) {
+        closeMobileNav();
+      }
+    });
+
+    /* ============================================================
+       3. TYPING EFFECT – Hero tagline
+    ============================================================ */
+    const typingEl   = document.getElementById('typing-text');
+    const typingLines = [
+      "Forge Your Strength. Define Your Legacy.",
+      "Premium Equipment for Serious Athletes.",
+      "Elevate Your Training. Every Rep Counts.",
+      "Built for Champions. Worn by Warriors."
+    ];
+    let  lineIndex  = 0;
+    let  charIndex  = 0;
+    let  isDeleting = false;
+
+    function typeEffect() {
+      const current = typingLines[lineIndex];
+      const displayed = isDeleting
+        ? current.substring(0, charIndex - 1)
+        : current.substring(0, charIndex + 1);
+
+      // Rebuild content with cursor
+      typingEl.innerHTML = displayed + '<span class="cursor" aria-hidden="true"></span>';
+
+      if (!isDeleting && charIndex === current.length) {
+        // Pause at end of line
+        setTimeout(() => { isDeleting = true; typeEffect(); }, 2000);
+        return;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        lineIndex  = (lineIndex + 1) % typingLines.length;
+      }
+
+      charIndex += isDeleting ? -1 : 1;
+      setTimeout(typeEffect, isDeleting ? 40 : 75);
+    }
+
+    setTimeout(typeEffect, 800);
+
+    /* ============================================================
+       4. SCROLL REVEAL – IntersectionObserver
+    ============================================================ */
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    /* ============================================================
+       5. ANIMATED COUNTERS – Stats section
+    ============================================================ */
+    function animateCounter(el) {
+      const target  = parseInt(el.getAttribute('data-target'));
+      const suffix  = el.getAttribute('data-suffix') || '';
+      const duration = 1800;
+      const step    = Math.ceil(target / (duration / 16));
+      let   current = 0;
+
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current.toLocaleString() + suffix;
+        if (current >= target) clearInterval(timer);
+      }, 16);
+    }
+
+    const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    statNumbers.forEach(el => statsObserver.observe(el));
+
+    /* ============================================================
+       6. PRODUCT FILTER
+    ============================================================ */
+    function filterProducts(category) {
+      // Update active filter button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === category);
+      });
+
+      // Show/hide products
+      document.querySelectorAll('.product-card').forEach(card => {
+        const match = (category === 'all') || (card.getAttribute('data-filter') === category);
+        if (match) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Scroll to products section if triggered from category cards
+      if (category !== 'all') {
+        document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    /* ============================================================
+       7. CART FUNCTIONALITY
+    ============================================================ */
+    let cartCount = 0;
+    const cartBadge = document.getElementById('cartBadge');
+    const cartBtn   = document.getElementById('cartBtn');
+    const toast     = document.getElementById('toast');
+    let   toastTimer = null;
+
+    function addToCart(productName) {
+      cartCount++;
+      cartBadge.textContent = cartCount;
+      cartBtn.setAttribute('aria-label', `Shopping cart, ${cartCount} item${cartCount !== 1 ? 's' : ''}`);
+
+      // Bounce animation
+      cartBtn.classList.remove('bounce');
+      void cartBtn.offsetWidth; // reflow
+      cartBtn.classList.add('bounce');
+
+      // Show toast
+      showToast(`🛒 <strong>${productName}</strong> added to cart!`);
+    }
+
+    function showToast(msg) {
+      toast.innerHTML = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    /* ============================================================
+       8. WISHLIST TOGGLE
+    ============================================================ */
+    function toggleWishlist(btn) {
+      const isActive = btn.classList.toggle('active');
+      btn.textContent = isActive ? '♥' : '♡';
+      btn.setAttribute('aria-label', isActive ? 'Remove from wishlist' : 'Add to wishlist');
+    }
+
+    /* ============================================================
+       9. TESTIMONIAL SLIDER
+    ============================================================ */
+    const track     = document.getElementById('testiTrack');
+    const dots      = document.querySelectorAll('#sliderDots .dot');
+    let   curSlide  = 0;
+    const totalSlides = dots.length;
+    let   autoplay  = null;
+
+    function goToSlide(index) {
+      curSlide = (index + totalSlides) % totalSlides;
+      track.style.transform = `translateX(-${curSlide * 100}%)`;
+      dots.forEach((d, i) => {
+        d.classList.toggle('active', i === curSlide);
+        d.setAttribute('aria-selected', i === curSlide ? 'true' : 'false');
+      });
+    }
+
+    function moveSlider(dir) {
+      goToSlide(curSlide + dir);
+      resetAutoplay();
+    }
+
+    function startAutoplay() {
+      autoplay = setInterval(() => goToSlide(curSlide + 1), 4000);
+    }
+
+    function resetAutoplay() {
+      clearInterval(autoplay);
+      startAutoplay();
+    }
+
+    startAutoplay();
+
+    // Pause autoplay on hover
+    const sliderEl = document.querySelector('.testimonials-slider');
+    sliderEl.addEventListener('mouseenter', () => clearInterval(autoplay));
+    sliderEl.addEventListener('mouseleave', startAutoplay);
+
+    /* ============================================================
+       10. COUNTDOWN TIMER – 2 days from page load
+    ============================================================ */
+    const saleEnd = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000);
+
+    function updateCountdown() {
+      const now  = new Date();
+      const diff = saleEnd - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '<p style="font-family:var(--font-display);font-size:2rem;color:var(--gold);">SALE ENDED</p>';
+        return;
+      }
+
+      const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
+      document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* ============================================================
+       11. NEWSLETTER FORM
+    ============================================================ */
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const form    = document.getElementById('newsletterForm');
+      const success = document.getElementById('newsletterSuccess');
+      form.style.display = 'none';
+      success.classList.add('show');
+    }
+
+    /* ============================================================
+       12. SMOOTH SCROLL for anchor links
+    ============================================================ */
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80; // navbar height
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+  </script>
+
+</body>
+</html>
